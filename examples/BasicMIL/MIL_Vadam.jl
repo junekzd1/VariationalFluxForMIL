@@ -2,6 +2,9 @@ using Vadam
 using CSV
 using Plots
 
+include("../examples/Basic/MIL/mill_models.jl")
+include("../examples/Basic/MIL/mill_load.jl")
+
 MI_dir = "C:/Users/Zdenda/Documents/GitHub/MIProblems/"
 
 # for (root, dirs, files) in walkdir(MI_dir)

@@ -5,7 +5,6 @@ using Base.Iterators
 import Base.length
 Base.length(B::BagNode)=length(B.bags.bags)
 
-
 function ReadMillData(path)
 	x_raw=readdlm("$(path)/data.csv",'\t',Float32)
 	bagids = readdlm("$(path)/bagids.csv",'\t',Int)[:]
@@ -18,9 +17,9 @@ function ReadMillData(path)
 	return (x_raw, x, y, y_oh)
 end
 
-function ReadMillAndSplit(path,N_iter)
+function ReadMillAndSplit(path,N_iter,seed)
 	(x_raw, x, y, y_oh) = ReadMillData(path)
-	data=train_val_test_split(x[y.==0],x[y.==1],(0.8,0.0,0.2);contamination=0.5)
+	data=train_val_test_split(x[y.==0],x[y.==1],(0.8,0.0,0.2);seed=seed,contamination=0.5)
 	xt = data[1][1];
 	yt = Flux.onehotbatch((data[1][2].+1)[:],1:2)
 	dta = repeated((xt, yt), N_iter)
